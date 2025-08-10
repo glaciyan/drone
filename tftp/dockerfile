@@ -1,0 +1,21 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openssh-server tftpd-hpa iproute2 net-tools vim
+
+RUN mkdir -p /var/run/sshd /srv/tftp /root/.ssh
+RUN echo "root:root" | chpasswd
+RUN chown -R tftp:tftp /srv/tftp
+RUN echo "hello from tftp" > /srv/tftp/hello.txt
+RUN chown tftp:tftp /srv/tftp/hello.txt
+RUN chmod 700 /root/.ssh
+
+COPY start.sh /start.sh
+COPY sshd_config /etc/ssh/sshd_config
+
+RUN ["chmod", "+x", "/start.sh"]
+
+EXPOSE 2222/tcp 69/udp
+ENTRYPOINT ["/start.sh"]

@@ -1,0 +1,6 @@
+spl:
+        path: ./buildroot/output/images/MLO
+u-boot:
+        path: ./buildroot/output/images/u-boot.img
+
+
