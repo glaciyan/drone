@@ -1,5 +1,5 @@
 #!/bin/sh
 set -xe
 
-docker stop tftp-docker
-docker rm tftp-docker
+docker stop tftp-server
+docker rm tftp-server
